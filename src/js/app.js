@@ -73,7 +73,8 @@ class PriorityMatrixApp {
 
       // Other
       loading: document.getElementById('loading'),
-      theOneDisplay: document.getElementById('the-one-display')
+      theOneDisplay: document.getElementById('the-one-display'),
+      printReportBtn: document.getElementById('print-report-btn')
     };
   }
 
@@ -83,6 +84,9 @@ class PriorityMatrixApp {
 
     // Generate report button
     this.elements.generateReportBtn?.addEventListener('click', () => this.generateReport());
+
+    // Print report button
+    this.elements.printReportBtn?.addEventListener('click', () => this.printReport());
 
     // Battle mode button
     this.elements.battleModeBtn?.addEventListener('click', () => this.startBattleMode());
@@ -434,9 +438,13 @@ class PriorityMatrixApp {
             <div class="report-quadrant">
               <h4>${this.i18n.t(`matrix.quadrants.quadrant_${q}`)}</h4>
               <p>${quadrants[q].length} tasks</p>
-              ${quadrants[q].slice(0, 3).map(task => `
-                <div class="report-task-item">${this.escapeHtml(task.name)}</div>
-              `).join('')}
+              ${quadrants[q].length > 0 ? quadrants[q].map(task => `
+                <div class="report-task-item">
+                  <strong>${this.escapeHtml(task.name)}</strong>
+                  ${task.description ? `<br><small>${this.escapeHtml(task.description)}</small>` : ''}
+                  <br><small>Priority: ${task.getPriorityScore()} | Age: ${task.getAgeInDays()}d</small>
+                </div>
+              `).join('') : '<div class="report-task-item"><em>No tasks in this quadrant</em></div>'}
             </div>
           `).join('')}
         </div>
@@ -448,13 +456,36 @@ class PriorityMatrixApp {
           <div>Total Tasks: ${stats.total}</div>
           <div>Completed: ${stats.completed}</div>
           <div>Pending: ${stats.pending}</div>
+          <div>Overdue: ${stats.overdue}</div>
           <div>Completion Rate: ${stats.completionRate.toFixed(1)}%</div>
+          <div>Avg Importance: ${stats.averageImportance.toFixed(1)}</div>
+        </div>
+
+        <h3>Quadrant Distribution</h3>
+        <div class="report-stats">
+          <div>Do First (Q1): ${stats.quadrantCounts[1]} tasks</div>
+          <div>Schedule (Q2): ${stats.quadrantCounts[2]} tasks</div>
+          <div>Delegate (Q3): ${stats.quadrantCounts[3]} tasks</div>
+          <div>Eliminate (Q4): ${stats.quadrantCounts[4]} tasks</div>
         </div>
       </div>
     `;
 
     document.getElementById('report-content').innerHTML = reportHTML;
     this.showModal(this.elements.reportModal);
+  }
+
+  printReport() {
+    // Add class to body to hide main content during print
+    document.body.classList.add('printing-report');
+
+    // Print the page
+    window.print();
+
+    // Remove the class after printing
+    setTimeout(() => {
+      document.body.classList.remove('printing-report');
+    }, 1000);
   }
 
   deleteTask(taskId) {

@@ -11,7 +11,6 @@
     <header class="app-header">
         <div class="header-content">
             <h1 data-i18n="app.title" data-cy="app-title">Priority Matrix</h1>
-            <p data-i18n="app.subtitle" class="subtitle">Organize your tasks (Eisenhower Matrix)</p>
 
             <div class="header-controls">
                 <select id="language-selector" data-cy="language-selector" class="language-selector">
@@ -32,6 +31,12 @@
     </header>
 
     <main class="app-main">
+        <!-- The One Display -->
+        <div id="the-one-display" class="the-one-display" style="display: none;">
+            <h2 data-i18n="reports.the_one">The One</h2>
+            <div id="the-one-task" data-cy="the-one-task" class="the-one-task"></div>
+        </div>
+
         <!-- Eisenhower Matrix Grid -->
         <div class="matrix-container">
             <div class="matrix-grid">
@@ -86,12 +91,6 @@
                     <div class="urgency-arrow">→</div>
                 </div>
             </div>
-        </div>
-
-        <!-- The One Display -->
-        <div id="the-one-display" class="the-one-display" style="display: none;">
-            <h2 data-i18n="reports.the_one">The One</h2>
-            <div id="the-one-task" data-cy="the-one-task" class="the-one-task"></div>
         </div>
     </main>
 
@@ -210,7 +209,7 @@
             </div>
 
             <div class="report-actions">
-                <button class="btn btn-secondary" onclick="window.print()">
+                <button class="btn btn-secondary" id="print-report-btn" data-cy="print-report-btn">
                     <span data-i18n="buttons.print">Print</span>
                 </button>
             </div>
@@ -236,10 +235,15 @@
                 </a>
             </div>
             <div class="footer-credit">
-                <span data-i18n="footer.generated_with">Generated with</span>
-                <a href="https://claude.ai/code" target="_blank" rel="noopener noreferrer" class="footer-claude-link">
-                    Claude Code
-                </a>
+                <div class="footer-generated">
+                    <span data-i18n="footer.generated_with">Generated with</span>
+                    <a href="https://claude.ai/code" target="_blank" rel="noopener noreferrer" class="footer-claude-link">
+                        Claude Code
+                    </a>
+                </div>
+                <div class="footer-subtitle">
+                    <span data-i18n="app.subtitle">Organize your tasks (Eisenhower Matrix)</span>
+                </div>
             </div>
         </div>
     </footer>

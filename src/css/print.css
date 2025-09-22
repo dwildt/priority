@@ -24,7 +24,48 @@
   .modal-header,
   .report-actions,
   .close-btn,
+  .bottom-subtitle,
+  .app-footer,
   button {
+    display: none !important;
+  }
+
+  /* When printing from report modal, hide everything except modal content */
+  .modal[style*="block"] ~ *:not(.modal),
+  .modal[style*="block"] ~ .modal:not([style*="block"]) {
+    display: none !important;
+  }
+
+  /* Ensure modal content prints correctly */
+  .modal[style*="block"] {
+    position: static !important;
+    display: block !important;
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  .modal[style*="block"] .modal-content {
+    background: white !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: none !important;
+    width: 100% !important;
+    height: auto !important;
+    position: static !important;
+    transform: none !important;
+  }
+
+  /* Hide main content when printing report */
+  body.printing-report .app-main,
+  body.printing-report .app-header,
+  body.printing-report .bottom-subtitle,
+  body.printing-report .app-footer {
     display: none !important;
   }
 
@@ -108,10 +149,8 @@
 
   /* Matrix overview */
   .report-matrix {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.5cm;
-    page-break-inside: avoid;
+    display: block;
+    page-break-inside: auto;
   }
 
   .report-quadrant {
@@ -119,7 +158,9 @@
     border: 1pt solid black;
     border-radius: 0;
     padding: 0.3cm;
-    page-break-inside: avoid;
+    margin-bottom: 0.5cm;
+    width: 100%;
+    page-break-inside: auto;
   }
 
   .report-quadrant h4 {
@@ -137,15 +178,28 @@
     margin: 0.1cm 0;
     border-left: 2pt solid black;
     font-size: 10pt;
-    page-break-inside: avoid;
+    line-height: 1.3;
+    page-break-inside: auto;
+  }
+
+  .report-task-item strong {
+    font-weight: bold;
+    color: black !important;
+  }
+
+  .report-task-item small {
+    font-size: 9pt;
+    color: #666 !important;
+    line-height: 1.2;
   }
 
   /* Statistics */
   .report-stats {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    display: flex;
+    flex-wrap: wrap;
     gap: 0.3cm;
-    page-break-inside: avoid;
+    page-break-inside: auto;
+    margin-bottom: 0.5cm;
   }
 
   .report-stats > div {
@@ -157,6 +211,8 @@
     font-size: 11pt;
     font-weight: bold;
     color: black !important;
+    flex: 1 1 auto;
+    min-width: 3cm;
   }
 
   /* Matrix grid for main view */
@@ -315,7 +371,8 @@
 
   /* Page breaks */
   .report-section {
-    page-break-inside: avoid;
+    page-break-inside: auto;
+    page-break-before: auto;
   }
 
   .report-section:not(:last-child) {
@@ -325,6 +382,16 @@
   .matrix-container {
     page-break-before: auto;
     page-break-after: auto;
+  }
+
+  /* Allow breaking within large sections */
+  .report-matrix {
+    page-break-inside: auto;
+  }
+
+  .report-quadrant {
+    page-break-inside: auto;
+    page-break-before: auto;
   }
 
   /* Typography improvements */
@@ -386,11 +453,19 @@
   }
 
   /* Avoid breaking inside important elements */
-  .quadrant-header,
-  .report-header,
-  .the-one-display {
+  .report-header {
     page-break-inside: avoid;
     page-break-after: avoid;
+  }
+
+  .quadrant-header {
+    page-break-inside: avoid;
+    page-break-after: auto;
+  }
+
+  .the-one-display {
+    page-break-inside: auto;
+    page-break-after: auto;
   }
 
   /* Ensure proper spacing */
