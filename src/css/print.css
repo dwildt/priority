@@ -30,43 +30,64 @@
     display: none !important;
   }
 
-  /* When printing from report modal, hide everything except modal content */
-  .modal[style*="block"] ~ *:not(.modal),
-  .modal[style*="block"] ~ .modal:not([style*="block"]) {
+  /* Simple content cloning approach - hide everything, show only print container */
+  body.printing * {
     display: none !important;
   }
 
-  /* Ensure modal content prints correctly */
-  .modal[style*="block"] {
-    position: static !important;
+  body.printing #print-container {
     display: block !important;
-    background: transparent !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    border: none !important;
-    box-shadow: none !important;
-  }
-
-  .modal[style*="block"] .modal-content {
-    background: white !important;
-    border: none !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    max-width: none !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
     width: 100% !important;
-    height: auto !important;
-    position: static !important;
-    transform: none !important;
+    background: white !important;
+    margin: 0 !important;
+    padding: 1.5cm !important;
   }
 
-  /* Hide main content when printing report */
-  body.printing-report .app-main,
-  body.printing-report .app-header,
-  body.printing-report .bottom-subtitle,
-  body.printing-report .app-footer {
-    display: none !important;
+  /* Show all content within print container */
+  body.printing #print-container * {
+    display: block !important;
+    visibility: visible !important;
+  }
+
+  /* Proper inline elements */
+  body.printing #print-container span,
+  body.printing #print-container em,
+  body.printing #print-container strong,
+  body.printing #print-container small,
+  body.printing #print-container a {
+    display: inline !important;
+  }
+
+  /* Fix matrix layout for printing */
+  body.printing .report-matrix {
+    display: block !important;
+  }
+
+  body.printing .report-quadrant {
+    display: block !important;
+    margin-bottom: 0.5cm !important;
+    width: 100% !important;
+    page-break-inside: auto !important;
+  }
+
+  /* Clean page layout for print container */
+  body.printing {
+    page: print-clean;
+  }
+
+  @page print-clean {
+    margin: 1.5cm;
+    @top-right {
+      content: none;
+    }
+    @bottom-center {
+      content: "Page " counter(page);
+      font-size: 10pt;
+      color: #666;
+    }
   }
 
   /* Page layout */

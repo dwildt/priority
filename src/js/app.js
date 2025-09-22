@@ -490,16 +490,45 @@ class PriorityMatrixApp {
   }
 
   printReport() {
-    // Add class to body to hide main content during print
-    document.body.classList.add('printing-report');
+    // Check if report modal is open
+    const reportModal = this.elements.reportModal;
+    const isModalOpen = reportModal && reportModal.style.display === 'block';
 
-    // Print the page
-    window.print();
+    if (!isModalOpen) {
+      console.error('Report modal is not open, cannot print');
+      return;
+    }
 
-    // Remove the class after printing
+    // Get the report content to clone
+    const reportContent = document.getElementById('report-content');
+    if (!reportContent) {
+      console.error('Report content not found');
+      return;
+    }
+
+    // Get the print container
+    const printContainer = document.getElementById('print-container');
+    if (!printContainer) {
+      console.error('Print container not found');
+      return;
+    }
+
+    // Clone the report content into the print container
+    printContainer.innerHTML = reportContent.innerHTML;
+
+    // Apply printing class to body
+    document.body.classList.add('printing');
+
+    // Add a small delay to ensure CSS changes are applied before printing
     setTimeout(() => {
-      document.body.classList.remove('printing-report');
-    }, 1000);
+      window.print();
+
+      // Clean up after printing
+      setTimeout(() => {
+        document.body.classList.remove('printing');
+        printContainer.innerHTML = ''; // Clear the cloned content
+      }, 500);
+    }, 100);
   }
 
   deleteTask(taskId) {
