@@ -1,0 +1,207 @@
+{
+  "testTasks": [
+    {
+      "name": "Fix Critical Security Bug",
+      "description": "Address security vulnerability in authentication system",
+      "importance": 5,
+      "urgency": 5,
+      "expectedQuadrant": 1
+    },
+    {
+      "name": "Plan Q4 Strategy",
+      "description": "Develop strategic plan for fourth quarter",
+      "importance": 5,
+      "urgency": 2,
+      "expectedQuadrant": 2
+    },
+    {
+      "name": "Attend Team Meeting",
+      "description": "Weekly team standup meeting",
+      "importance": 2,
+      "urgency": 5,
+      "expectedQuadrant": 3
+    },
+    {
+      "name": "Organize Desk",
+      "description": "Clean and organize workspace",
+      "importance": 2,
+      "urgency": 2,
+      "expectedQuadrant": 4
+    },
+    {
+      "name": "Code Review",
+      "description": "Review pull request for new feature",
+      "importance": 4,
+      "urgency": 4,
+      "expectedQuadrant": 1
+    },
+    {
+      "name": "Update Documentation",
+      "description": "Update project documentation with latest changes",
+      "importance": 4,
+      "urgency": 2,
+      "expectedQuadrant": 2
+    },
+    {
+      "name": "Respond to Email",
+      "description": "Reply to non-urgent email inquiries",
+      "importance": 2,
+      "urgency": 4,
+      "expectedQuadrant": 3
+    },
+    {
+      "name": "Social Media Check",
+      "description": "Browse social media during break",
+      "importance": 1,
+      "urgency": 1,
+      "expectedQuadrant": 4
+    }
+  ],
+  "battleScenarios": [
+    {
+      "name": "High Priority Tasks",
+      "tasks": [
+        {
+          "name": "Emergency Hotfix",
+          "importance": 5,
+          "urgency": 5,
+          "description": "Critical system failure needs immediate fix"
+        },
+        {
+          "name": "Client Presentation",
+          "importance": 5,
+          "urgency": 5,
+          "description": "Present to major client tomorrow"
+        },
+        {
+          "name": "Server Maintenance",
+          "importance": 5,
+          "urgency": 5,
+          "description": "Scheduled maintenance window"
+        }
+      ],
+      "expectedChoices": ["a", "b", "a"]
+    }
+  ],
+  "performanceTest": {
+    "taskCount": 50,
+    "template": {
+      "name": "Performance Task {index}",
+      "description": "Generated task for performance testing - {index}",
+      "importance": "random",
+      "urgency": "random"
+    }
+  },
+  "translationTest": {
+    "en": {
+      "taskName": "English Task",
+      "description": "Task created in English"
+    },
+    "pt": {
+      "taskName": "Tarefa em Português",
+      "description": "Tarefa criada em português"
+    },
+    "es": {
+      "taskName": "Tarea en Español",
+      "description": "Tarea creada en español"
+    }
+  },
+  "edgeCases": [
+    {
+      "name": "",
+      "description": "Task with empty name (should fail validation)",
+      "importance": 3,
+      "urgency": 3,
+      "shouldFail": true
+    },
+    {
+      "name": "a".repeat(101),
+      "description": "Task with name too long (should fail validation)",
+      "importance": 3,
+      "urgency": 3,
+      "shouldFail": true
+    },
+    {
+      "name": "Valid Task",
+      "description": "a".repeat(501),
+      "importance": 3,
+      "urgency": 3,
+      "shouldFail": true
+    },
+    {
+      "name": "Boundary Importance High",
+      "description": "Task with importance at high boundary",
+      "importance": 4,
+      "urgency": 3,
+      "expectedQuadrant": 2
+    },
+    {
+      "name": "Boundary Importance Low",
+      "description": "Task with importance just below threshold",
+      "importance": 3,
+      "urgency": 4,
+      "expectedQuadrant": 3
+    },
+    {
+      "name": "Boundary Urgency High",
+      "description": "Task with urgency at high boundary",
+      "importance": 3,
+      "urgency": 4,
+      "expectedQuadrant": 3
+    },
+    {
+      "name": "Boundary Urgency Low",
+      "description": "Task with urgency just below threshold",
+      "importance": 4,
+      "urgency": 3,
+      "expectedQuadrant": 2
+    }
+  ],
+  "reportTest": {
+    "theOneScenario": {
+      "tasks": [
+        {
+          "name": "The Ultimate Task",
+          "importance": 5,
+          "urgency": 5,
+          "description": "This should be The One"
+        },
+        {
+          "name": "Secondary Task",
+          "importance": 5,
+          "urgency": 5,
+          "description": "This should be in Up Next"
+        },
+        {
+          "name": "Third Task",
+          "importance": 5,
+          "urgency": 5,
+          "description": "Another up next task"
+        }
+      ],
+      "battleChoices": ["a", "a"],
+      "expectedTheOne": "The Ultimate Task",
+      "expectedUpNext": ["Secondary Task", "Third Task"]
+    }
+  },
+  "accessibilityTest": {
+    "tasks": [
+      {
+        "name": "Screen Reader Test",
+        "description": "Task for testing screen reader compatibility",
+        "importance": 3,
+        "urgency": 3
+      }
+    ],
+    "keyboardShortcuts": [
+      {
+        "key": "ctrl+n",
+        "expectedAction": "Open add task modal"
+      },
+      {
+        "key": "escape",
+        "expectedAction": "Close open modal"
+      }
+    ]
+  }
+}

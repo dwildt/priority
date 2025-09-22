@@ -1,0 +1,110 @@
+{
+  "app": {
+    "title": "Matriz de Prioridades",
+    "subtitle": "Organize suas tarefas (Matriz de Eisenhower)"
+  },
+  "matrix": {
+    "quadrants": {
+      "urgent_important": "Fazer Primeiro",
+      "urgent_important_desc": "Urgente e Importante",
+      "not_urgent_important": "Agendar",
+      "not_urgent_important_desc": "Importante e Não Urgente",
+      "urgent_not_important": "Delegar",
+      "urgent_not_important_desc": "Urgente e Não Importante",
+      "not_urgent_not_important": "Eliminar",
+      "not_urgent_not_important_desc": "Não Urgente e Não Importante",
+      "quadrant_1": "Fazer Primeiro (Urgente e Importante)",
+      "quadrant_2": "Agendar (Importante e Não Urgente)",
+      "quadrant_3": "Delegar (Urgente e Não Importante)",
+      "quadrant_4": "Eliminar (Não Urgente e Não Importante)"
+    },
+    "labels": {
+      "importance": "IMPORTÂNCIA",
+      "urgency": "URGÊNCIA"
+    },
+    "empty_quadrant": "Nenhuma tarefa neste quadrante"
+  },
+  "forms": {
+    "task": {
+      "title": "Adicionar Nova Tarefa",
+      "edit_title": "Editar Tarefa",
+      "name": "Nome da Tarefa",
+      "description": "Descrição",
+      "importance_question": "Esta tarefa é importante?",
+      "urgency_question": "Esta tarefa é urgente?",
+      "importance_label": "Importante",
+      "urgency_label": "Urgente",
+      "importance_scale": {
+        "1": "Não importante",
+        "2": "Pouco importante",
+        "3": "Moderadamente importante",
+        "4": "Muito importante",
+        "5": "Extremamente importante"
+      },
+      "urgency_scale": {
+        "1": "Pode esperar semanas",
+        "2": "Pode esperar dias",
+        "3": "Deve ser feito em breve",
+        "4": "Deve ser feito hoje",
+        "5": "Deve ser feito agora"
+      }
+    }
+  },
+  "buttons": {
+    "add_task": "Adicionar Tarefa",
+    "save": "Salvar",
+    "cancel": "Cancelar",
+    "edit": "Editar",
+    "delete": "Excluir",
+    "complete": "Concluir",
+    "uncomplete": "Marcar como Pendente",
+    "battle_mode": "Modo Batalha",
+    "generate_report": "Gerar Relatório",
+    "print": "Imprimir"
+  },
+  "battle": {
+    "title": "Modo Batalha",
+    "question": "Qual tarefa é mais importante?",
+    "task_a": "Tarefa A",
+    "task_b": "Tarefa B",
+    "choose_a": "Escolher A",
+    "choose_b": "Escolher B",
+    "complete": "Batalha Completa!",
+    "the_one_determined": "A Única foi determinada",
+    "not_enough_tasks": "Você precisa de pelo menos 2 tarefas no quadrante 'Fazer Primeiro' para iniciar o Modo Batalha"
+  },
+  "reports": {
+    "title": "Relatório de Prioridades",
+    "the_one": "A Única",
+    "up_next": "Próximas",
+    "matrix_overview": "Visão Geral da Matriz",
+    "generated_on": "Gerado em",
+    "statistics": "Estatísticas"
+  },
+  "messages": {
+    "task_added": "Tarefa adicionada com sucesso",
+    "task_updated": "Tarefa atualizada com sucesso",
+    "task_deleted": "Tarefa excluída com sucesso",
+    "task_completed": "Tarefa marcada como concluída",
+    "task_uncompleted": "Tarefa marcada como pendente",
+    "confirm_delete": "Tem certeza de que deseja excluir esta tarefa?",
+    "no_tasks": "Nenhuma tarefa encontrada",
+    "loading": "Carregando...",
+    "error": "Ocorreu um erro",
+    "success": "Operação concluída com sucesso"
+  },
+  "stats": {
+    "total_tasks": "Total de Tarefas",
+    "completed_tasks": "Concluídas",
+    "pending_tasks": "Pendentes",
+    "overdue_tasks": "Atrasadas",
+    "completion_rate": "Taxa de Conclusão",
+    "average_importance": "Importância Média",
+    "average_urgency": "Urgência Média"
+  },
+  "footer": {
+    "repository": "Repositório",
+    "sponsor": "Patrocinar",
+    "generated_with": "Gerado com"
+  }
+}

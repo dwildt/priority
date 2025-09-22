@@ -1,0 +1,404 @@
+/* Print-specific styles */
+@media print {
+  /* Reset margins and hide unnecessary elements */
+  * {
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  body {
+    background: white !important;
+    color: black !important;
+    font-size: 12pt;
+    line-height: 1.4;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Hide interactive elements */
+  .app-header,
+  .header-controls,
+  .btn,
+  .battle-mode-btn,
+  .task-actions,
+  .modal-header,
+  .report-actions,
+  .close-btn,
+  button {
+    display: none !important;
+  }
+
+  /* Page layout */
+  .app-main {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Report specific styles */
+  .report-content {
+    max-height: none;
+    overflow: visible;
+    padding: 1cm;
+  }
+
+  .report-header {
+    text-align: center;
+    margin-bottom: 1cm;
+    border-bottom: 2pt solid black;
+    padding-bottom: 0.5cm;
+  }
+
+  .report-header h1 {
+    font-size: 24pt;
+    font-weight: bold;
+    margin-bottom: 0.3cm;
+    color: black !important;
+  }
+
+  .report-section {
+    margin-bottom: 1cm;
+    page-break-inside: avoid;
+  }
+
+  .report-section h2 {
+    font-size: 18pt;
+    font-weight: bold;
+    color: black !important;
+    border-bottom: 1pt solid black;
+    padding-bottom: 0.2cm;
+    margin-bottom: 0.5cm;
+  }
+
+  .report-section h3 {
+    font-size: 14pt;
+    font-weight: bold;
+    color: black !important;
+    margin-bottom: 0.3cm;
+  }
+
+  .report-task-card {
+    background: white !important;
+    border: 1pt solid black;
+    border-radius: 0;
+    padding: 0.5cm;
+    margin-bottom: 0.5cm;
+    border-left: 4pt solid black;
+    page-break-inside: avoid;
+  }
+
+  .report-task-card h3,
+  .report-task-card h4 {
+    font-size: 14pt;
+    font-weight: bold;
+    margin-bottom: 0.2cm;
+    color: black !important;
+  }
+
+  .report-task-card p {
+    font-size: 12pt;
+    margin-bottom: 0.2cm;
+    color: black !important;
+  }
+
+  .task-details {
+    font-size: 10pt;
+    color: #666 !important;
+  }
+
+  /* Matrix overview */
+  .report-matrix {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5cm;
+    page-break-inside: avoid;
+  }
+
+  .report-quadrant {
+    background: white !important;
+    border: 1pt solid black;
+    border-radius: 0;
+    padding: 0.3cm;
+    page-break-inside: avoid;
+  }
+
+  .report-quadrant h4 {
+    font-size: 12pt;
+    font-weight: bold;
+    margin-bottom: 0.2cm;
+    color: black !important;
+  }
+
+  .report-task-item {
+    background: white !important;
+    border: 0.5pt solid #ccc;
+    border-radius: 0;
+    padding: 0.2cm;
+    margin: 0.1cm 0;
+    border-left: 2pt solid black;
+    font-size: 10pt;
+    page-break-inside: avoid;
+  }
+
+  /* Statistics */
+  .report-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.3cm;
+    page-break-inside: avoid;
+  }
+
+  .report-stats > div {
+    background: white !important;
+    border: 1pt solid black;
+    border-radius: 0;
+    padding: 0.3cm;
+    text-align: center;
+    font-size: 11pt;
+    font-weight: bold;
+    color: black !important;
+  }
+
+  /* Matrix grid for main view */
+  .matrix-container {
+    background: white !important;
+    border-radius: 0;
+    box-shadow: none !important;
+    margin-bottom: 1cm;
+  }
+
+  .matrix-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 0.2cm;
+    page-break-inside: avoid;
+  }
+
+  .quadrant {
+    background: white !important;
+    border: 2pt solid black;
+    border-radius: 0;
+    padding: 0.5cm;
+    min-height: 6cm;
+    page-break-inside: avoid;
+  }
+
+  .quadrant-header h2 {
+    font-size: 14pt;
+    font-weight: bold;
+    color: black !important;
+    margin-bottom: 0.2cm;
+  }
+
+  .quadrant-header p {
+    font-size: 10pt;
+    color: #666 !important;
+    margin-bottom: 0.3cm;
+  }
+
+  .task-list {
+    max-height: none;
+    overflow: visible;
+    gap: 0.2cm;
+  }
+
+  .task-item {
+    background: white !important;
+    border: 1pt solid #ccc;
+    border-radius: 0;
+    padding: 0.3cm;
+    box-shadow: none !important;
+    border-left: 3pt solid black;
+    page-break-inside: avoid;
+  }
+
+  .task-item.priority-critical {
+    border-left-color: black !important;
+  }
+
+  .task-item.priority-high {
+    border-left-color: #666 !important;
+  }
+
+  .task-item.priority-medium {
+    border-left-color: #999 !important;
+  }
+
+  .task-item.priority-low {
+    border-left-color: #ccc !important;
+  }
+
+  .task-name {
+    font-size: 11pt;
+    font-weight: bold;
+    color: black !important;
+    margin-bottom: 0.1cm;
+  }
+
+  .task-description {
+    font-size: 10pt;
+    color: #666 !important;
+    margin-bottom: 0.2cm;
+  }
+
+  .task-meta {
+    font-size: 9pt;
+    color: #999 !important;
+    display: flex;
+    gap: 0.3cm;
+  }
+
+  .task-meta span {
+    background: #f0f0f0 !important;
+    padding: 0.1cm 0.2cm;
+    border: 0.5pt solid #ccc;
+    font-weight: normal;
+  }
+
+  .empty-quadrant {
+    font-size: 10pt;
+    color: #999 !important;
+    font-style: italic;
+    text-align: center;
+    padding: 1cm;
+  }
+
+  /* The One display */
+  .the-one-display {
+    background: white !important;
+    border: 3pt solid black;
+    border-radius: 0;
+    padding: 0.5cm;
+    margin: 0.5cm 0;
+    text-align: center;
+    page-break-inside: avoid;
+  }
+
+  .the-one-display h2 {
+    color: black !important;
+    font-size: 18pt;
+    font-weight: bold;
+    margin-bottom: 0.3cm;
+    text-shadow: none !important;
+  }
+
+  .the-one-task {
+    background: white !important;
+    border: 1pt solid black;
+    border-radius: 0;
+    display: block;
+    box-shadow: none !important;
+    margin: 0 auto;
+    max-width: 12cm;
+  }
+
+  /* Matrix labels */
+  .matrix-labels {
+    display: block !important;
+    position: static;
+  }
+
+  .importance-label,
+  .urgency-label {
+    position: static;
+    transform: none;
+    font-size: 10pt;
+    font-weight: bold;
+    color: black !important;
+    text-align: center;
+    padding: 0.2cm;
+    border: 1pt solid black;
+    background: #f0f0f0 !important;
+    margin-bottom: 0.2cm;
+  }
+
+  /* Page breaks */
+  .report-section {
+    page-break-inside: avoid;
+  }
+
+  .report-section:not(:last-child) {
+    page-break-after: auto;
+  }
+
+  .matrix-container {
+    page-break-before: auto;
+    page-break-after: auto;
+  }
+
+  /* Typography improvements */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Times New Roman', serif;
+  }
+
+  body, p, div, span {
+    font-family: 'Times New Roman', serif;
+  }
+
+  /* Ensure good contrast */
+  * {
+    color-adjust: exact !important;
+    -webkit-print-color-adjust: exact !important;
+  }
+
+  /* Header for non-report pages */
+  .print-header {
+    display: block !important;
+    text-align: center;
+    border-bottom: 2pt solid black;
+    padding-bottom: 0.5cm;
+    margin-bottom: 1cm;
+  }
+
+  .print-title {
+    font-size: 20pt;
+    font-weight: bold;
+    margin-bottom: 0.2cm;
+  }
+
+  .print-date {
+    font-size: 12pt;
+    color: #666 !important;
+  }
+
+  /* Footer */
+  @page {
+    margin: 2cm;
+
+    @bottom-center {
+      content: "Page " counter(page) " of " counter(pages);
+      font-size: 10pt;
+      color: #666;
+    }
+
+    @top-right {
+      content: "Priority Matrix Report";
+      font-size: 10pt;
+      color: #666;
+    }
+  }
+
+  /* Widow and orphan control */
+  p, .task-item, .report-task-card {
+    orphans: 2;
+    widows: 2;
+  }
+
+  /* Avoid breaking inside important elements */
+  .quadrant-header,
+  .report-header,
+  .the-one-display {
+    page-break-inside: avoid;
+    page-break-after: avoid;
+  }
+
+  /* Ensure proper spacing */
+  .report-section + .report-section {
+    margin-top: 0.8cm;
+  }
+
+  .quadrant + .quadrant {
+    margin-top: 0.3cm;
+  }
+}

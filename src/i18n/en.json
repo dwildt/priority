@@ -1,0 +1,110 @@
+{
+  "app": {
+    "title": "Priority Matrix",
+    "subtitle": "Organize your tasks (Eisenhower Matrix)"
+  },
+  "matrix": {
+    "quadrants": {
+      "urgent_important": "Do First",
+      "urgent_important_desc": "Urgent & Important",
+      "not_urgent_important": "Schedule",
+      "not_urgent_important_desc": "Important & Not Urgent",
+      "urgent_not_important": "Delegate",
+      "urgent_not_important_desc": "Urgent & Not Important",
+      "not_urgent_not_important": "Eliminate",
+      "not_urgent_not_important_desc": "Not Urgent & Not Important",
+      "quadrant_1": "Do First (Urgent & Important)",
+      "quadrant_2": "Schedule (Important & Not Urgent)",
+      "quadrant_3": "Delegate (Urgent & Not Important)",
+      "quadrant_4": "Eliminate (Not Urgent & Not Important)"
+    },
+    "labels": {
+      "importance": "IMPORTANCE",
+      "urgency": "URGENCY"
+    },
+    "empty_quadrant": "No tasks in this quadrant"
+  },
+  "forms": {
+    "task": {
+      "title": "Add New Task",
+      "edit_title": "Edit Task",
+      "name": "Task Name",
+      "description": "Description",
+      "importance_question": "Is this task important?",
+      "urgency_question": "Is this task urgent?",
+      "importance_label": "Important",
+      "urgency_label": "Urgent",
+      "importance_scale": {
+        "1": "Not important",
+        "2": "Slightly important",
+        "3": "Moderately important",
+        "4": "Very important",
+        "5": "Extremely important"
+      },
+      "urgency_scale": {
+        "1": "Can wait weeks",
+        "2": "Can wait days",
+        "3": "Should be done soon",
+        "4": "Should be done today",
+        "5": "Must be done now"
+      }
+    }
+  },
+  "buttons": {
+    "add_task": "Add Task",
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "complete": "Complete",
+    "uncomplete": "Mark as Pending",
+    "battle_mode": "Battle Mode",
+    "generate_report": "Generate Report",
+    "print": "Print"
+  },
+  "battle": {
+    "title": "Battle Mode",
+    "question": "Which task is more important?",
+    "task_a": "Task A",
+    "task_b": "Task B",
+    "choose_a": "Choose A",
+    "choose_b": "Choose B",
+    "complete": "Battle Complete!",
+    "the_one_determined": "The One has been determined",
+    "not_enough_tasks": "You need at least 2 tasks in the 'Do First' quadrant to start Battle Mode"
+  },
+  "reports": {
+    "title": "Priority Report",
+    "the_one": "The One",
+    "up_next": "Up Next",
+    "matrix_overview": "Matrix Overview",
+    "generated_on": "Generated on",
+    "statistics": "Statistics"
+  },
+  "messages": {
+    "task_added": "Task added successfully",
+    "task_updated": "Task updated successfully",
+    "task_deleted": "Task deleted successfully",
+    "task_completed": "Task marked as completed",
+    "task_uncompleted": "Task marked as pending",
+    "confirm_delete": "Are you sure you want to delete this task?",
+    "no_tasks": "No tasks found",
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "success": "Operation completed successfully"
+  },
+  "stats": {
+    "total_tasks": "Total Tasks",
+    "completed_tasks": "Completed",
+    "pending_tasks": "Pending",
+    "overdue_tasks": "Overdue",
+    "completion_rate": "Completion Rate",
+    "average_importance": "Average Importance",
+    "average_urgency": "Average Urgency"
+  },
+  "footer": {
+    "repository": "Repository",
+    "sponsor": "Sponsor",
+    "generated_with": "Generated with"
+  }
+}
