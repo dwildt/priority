@@ -181,7 +181,7 @@ class PriorityMatrixApp {
     Object.keys(quadrants).forEach(quadrantNum => {
       const quadrantElement = this.elements[`quadrant${quadrantNum}`];
       if (quadrantElement) {
-        this.renderQuadrant(quadrantElement, quadrants[quadrantNum]);
+        this.renderQuadrant(quadrantElement, quadrants[quadrantNum], parseInt(quadrantNum));
       }
     });
 
@@ -192,7 +192,7 @@ class PriorityMatrixApp {
     this.updateTheOneDisplay();
   }
 
-  renderQuadrant(element, tasks) {
+  renderQuadrant(element, tasks, quadrantNumber) {
     element.innerHTML = '';
 
     if (tasks.length === 0) {
@@ -203,8 +203,8 @@ class PriorityMatrixApp {
       return;
     }
 
-    // Sort tasks by priority
-    const sortedTasks = this.matrix.sortTasksByPriority(tasks);
+    // Sort tasks by priority, using battle results for Do First quadrant
+    const sortedTasks = this.matrix.sortTasksByPriority(tasks, quadrantNumber);
 
     sortedTasks.forEach(task => {
       const taskElement = this.createTaskElement(task);
@@ -355,8 +355,9 @@ class PriorityMatrixApp {
 
     document.getElementById('battle-the-one').innerHTML = resultHTML;
 
-    // Update the main display
+    // Update the main display and refresh Do First quadrant with new battle ordering
     this.updateTheOneDisplay();
+    this.renderMatrix();
   }
 
   createBattleResultCard(rankingItem) {
@@ -377,7 +378,7 @@ class PriorityMatrixApp {
   updateTheOneDisplay() {
     // Check if we have a "The One" from recent battle
     const urgentTasks = this.matrix.getTasksByQuadrant(1);
-    const sortedTasks = this.matrix.sortTasksByPriority(urgentTasks);
+    const sortedTasks = this.matrix.sortTasksByPriority(urgentTasks, 1);
 
     if (sortedTasks.length > 0) {
       const theOne = sortedTasks[0];
@@ -391,8 +392,8 @@ class PriorityMatrixApp {
   generateReport() {
     const stats = this.matrix.getStatistics();
     const quadrants = this.matrix.getTasksByQuadrant();
-    const theOneTask = this.matrix.sortTasksByPriority(quadrants[1])[0];
-    const upNext = this.matrix.sortTasksByPriority(quadrants[1]).slice(1, 4);
+    const theOneTask = this.matrix.sortTasksByPriority(quadrants[1], 1)[0];
+    const upNext = this.matrix.sortTasksByPriority(quadrants[1], 1).slice(1, 4);
 
     const reportHTML = `
       <div class="report-header">

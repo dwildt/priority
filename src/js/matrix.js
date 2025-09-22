@@ -1,4 +1,5 @@
 import Task from './task.js';
+import BattleMode from './battle.js';
 
 class Matrix {
   constructor() {
@@ -106,9 +107,53 @@ class Matrix {
     });
   }
 
-  sortTasksByPriority(tasks = null) {
+  sortTasksByPriority(tasks = null, quadrant = null) {
     const tasksToSort = tasks || this.getAllTasks();
+
+    // For Do First quadrant (quadrant 1), try to use battle results
+    if (quadrant === 1) {
+      return this.sortTasksWithBattleResults(tasksToSort);
+    }
+
+    // Default priority score sorting for other quadrants
     return tasksToSort.sort((a, b) => b.getPriorityScore() - a.getPriorityScore());
+  }
+
+  sortTasksWithBattleResults(tasks) {
+    // Load battle results from localStorage
+    const battleResults = BattleMode.loadBattleResults();
+
+    if (!battleResults || !battleResults.rankings) {
+      // No battle results available, use default priority sorting
+      return tasks.sort((a, b) => b.getPriorityScore() - a.getPriorityScore());
+    }
+
+    // Create a map of task ID to battle ranking for quick lookup
+    const battleRankingMap = new Map();
+    battleResults.rankings.forEach((ranking, index) => {
+      battleRankingMap.set(ranking.task.id, {
+        score: ranking.score,
+        position: index
+      });
+    });
+
+    // Sort tasks using battle results, with fallback to priority score
+    return tasks.sort((a, b) => {
+      const aRanking = battleRankingMap.get(a.id);
+      const bRanking = battleRankingMap.get(b.id);
+
+      // If both tasks have battle rankings, use battle order
+      if (aRanking && bRanking) {
+        return aRanking.position - bRanking.position; // Lower position = higher rank
+      }
+
+      // If only one has battle ranking, prioritize it
+      if (aRanking && !bRanking) return -1;
+      if (!aRanking && bRanking) return 1;
+
+      // Neither has battle ranking, use priority score
+      return b.getPriorityScore() - a.getPriorityScore();
+    });
   }
 
   getStatistics() {

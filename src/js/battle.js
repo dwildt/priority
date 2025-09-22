@@ -89,6 +89,7 @@ class BattleMode {
     if (this.currentPairIndex >= this.pairs.length) {
       this.isComplete = true;
       this.calculateFinalRankings();
+      this.saveBattleResults();
     }
 
     return {
@@ -215,6 +216,57 @@ class BattleMode {
       isComplete: this.isComplete,
       progress: this.getProgress()
     };
+  }
+
+  saveBattleResults() {
+    if (!this.isComplete) {
+      return;
+    }
+
+    try {
+      const rankings = this.getRankings();
+      const battleResults = {
+        rankings: rankings,
+        timestamp: Date.now(),
+        taskIds: this.tasks.map(task => task.id)
+      };
+
+      localStorage.setItem('priority-matrix-battle-results', JSON.stringify(battleResults));
+      console.log('Battle results saved to localStorage');
+    } catch (error) {
+      console.error('Failed to save battle results:', error);
+    }
+  }
+
+  static loadBattleResults() {
+    try {
+      const stored = localStorage.getItem('priority-matrix-battle-results');
+      if (!stored) {
+        return null;
+      }
+
+      const results = JSON.parse(stored);
+      // Check if results are not too old (7 days)
+      const oneWeek = 7 * 24 * 60 * 60 * 1000;
+      if (Date.now() - results.timestamp > oneWeek) {
+        localStorage.removeItem('priority-matrix-battle-results');
+        return null;
+      }
+
+      return results;
+    } catch (error) {
+      console.error('Failed to load battle results:', error);
+      return null;
+    }
+  }
+
+  static clearBattleResults() {
+    try {
+      localStorage.removeItem('priority-matrix-battle-results');
+      console.log('Battle results cleared from localStorage');
+    } catch (error) {
+      console.error('Failed to clear battle results:', error);
+    }
   }
 
   exportBattleData() {
