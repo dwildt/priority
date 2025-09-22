@@ -383,10 +383,23 @@ class PriorityMatrixApp {
     if (sortedTasks.length > 0) {
       const theOne = sortedTasks[0];
       this.elements.theOneDisplay.style.display = 'block';
-      document.getElementById('the-one-task').innerHTML = this.createTaskElement(theOne).outerHTML;
+      this.renderTheOneTask(theOne);
     } else {
       this.elements.theOneDisplay.style.display = 'none';
     }
+  }
+
+  renderTheOneTask(task) {
+    const theOneContainer = document.getElementById('the-one-task');
+
+    // Clear previous content
+    theOneContainer.innerHTML = '';
+
+    // Create the task element with proper event listeners
+    const taskElement = this.createTaskElement(task);
+
+    // Append the element (this preserves event listeners)
+    theOneContainer.appendChild(taskElement);
   }
 
   generateReport() {
