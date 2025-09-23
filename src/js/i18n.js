@@ -1,22 +1,58 @@
+/**
+ * Internationalization (i18n) manager for multi-language support.
+ * Supports Portuguese (pt), English (en), and Spanish (es) with dynamic language switching.
+ * 
+ * Features:
+ * - Dynamic language loading from JSON files
+ * - Graceful fallback to English for missing translations
+ * - Parameter interpolation in translations
+ * - DOM element auto-translation via data-i18n attributes
+ * - Persistent language preference storage
+ * 
+ * @class I18n
+ */
 class I18n {
+  /**
+   * Initializes the i18n system with stored language preference or English default.
+   */
   constructor() {
+    /** @type {string} Current active language code */
     this.currentLanguage = localStorage.getItem('priority-matrix-language') || 'en';
+    
+    /** @type {Object} Cache of loaded translation objects by language */
     this.translations = {};
+    
+    /** @type {string} Fallback language when translations are missing */
     this.fallbackLanguage = 'en';
   }
 
+  /**
+   * Initializes the i18n system by loading the current language and updating the DOM.
+   * 
+   * @async
+   * @returns {Promise<void>}
+   */
   async init() {
     await this.loadLanguage(this.currentLanguage);
     this.updateDOM();
     this.setupLanguageSelector();
   }
 
+  /**
+   * Loads translation data for a specific language from JSON file.
+   * Falls back to English if the requested language fails to load.
+   * 
+   * @async
+   * @param {string} lang - Language code (en, pt, es)
+   * @returns {Promise<boolean>} True if language loaded successfully, false otherwise
+   */
   async loadLanguage(lang) {
     try {
       const response = await fetch(`i18n/${lang}.json`);
       if (!response.ok) {
         throw new Error(`Failed to load language: ${lang}`);
       }
+      
       this.translations[lang] = await response.json();
       this.currentLanguage = lang;
       localStorage.setItem('priority-matrix-language', lang);
@@ -24,6 +60,8 @@ class I18n {
       return true;
     } catch (error) {
       console.warn(`Failed to load language ${lang}, falling back to ${this.fallbackLanguage}`, error);
+      
+      // Recursive fallback to English
       if (lang !== this.fallbackLanguage) {
         return await this.loadLanguage(this.fallbackLanguage);
       }

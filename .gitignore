@@ -120,3 +120,11 @@ build/
 
 # Local development
 .env.local
+
+# GitHub Copilot generated files (if any)
+.copilot/
+
+# Include documentation and configuration files for Copilot
+!.github/copilot-instructions.md
+!docs/copilot-development-guide.md
+!src/js/types.js

@@ -1,4 +1,24 @@
 <!DOCTYPE html>
+<!--
+  Priority Matrix - Eisenhower Matrix Task Organization System
+  
+  A personal task organization system based on the Eisenhower Matrix for prioritizing tasks
+  by importance and urgency. Features multi-language support, battle mode for finding "The One"
+  most important task, and print-ready reports.
+  
+  Key HTML Structure:
+  - Matrix Grid: 4-quadrant layout for task categorization
+  - Modals: Task creation/editing, battle mode, reports
+  - Multi-language: data-i18n attributes for dynamic translation
+  - Accessibility: Proper ARIA labels and keyboard navigation
+  - Testing: data-cy attributes for Cypress E2E tests
+  
+  Quadrant Layout:
+  Q1 (Do First): Important & Urgent - Crisis, emergencies, deadlines
+  Q2 (Schedule): Important & Not Urgent - Planning, development, research  
+  Q3 (Delegate): Not Important & Urgent - Interruptions, some meetings
+  Q4 (Eliminate): Not Important & Not Urgent - Time wasters, busy work
+-->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,17 +28,20 @@
     <link rel="stylesheet" href="css/print.css" media="print">
 </head>
 <body>
+    <!-- Main Application Header -->
     <header class="app-header">
         <div class="header-content">
             <h1 data-i18n="app.title" data-cy="app-title">Priority Matrix</h1>
 
             <div class="header-controls">
+                <!-- Language Switcher - Supports PT/EN/ES -->
                 <select id="language-selector" data-cy="language-selector" class="language-selector">
                     <option value="en">🇺🇸 English</option>
                     <option value="pt">🇧🇷 Português</option>
                     <option value="es">🇪🇸 Español</option>
                 </select>
 
+                <!-- Primary Action Buttons -->
                 <button id="add-task-btn" data-cy="add-task-btn" class="btn btn-primary">
                     <span data-i18n="buttons.add_task">Add Task</span>
                 </button>
