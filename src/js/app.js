@@ -2,31 +2,63 @@ import I18n from './i18n.js';
 import Matrix from './matrix.js';
 import BattleMode from './battle.js';
 
+/**
+ * Main Priority Matrix Application class.
+ * Coordinates between the Matrix data model, I18n system, and UI components.
+ * Implements the Eisenhower Matrix methodology for task prioritization.
+ * 
+ * Features:
+ * - Task creation, editing, and management
+ * - Multi-language support (PT/EN/ES)
+ * - Battle mode for "The One" task identification
+ * - Print-ready reports
+ * - Responsive design with accessibility support
+ * 
+ * @class PriorityMatrixApp
+ */
 class PriorityMatrixApp {
+  /**
+   * Initializes the Priority Matrix application.
+   * Sets up core dependencies and starts the initialization process.
+   */
   constructor() {
+    /** @type {I18n} Internationalization manager */
     this.i18n = new I18n();
+    
+    /** @type {Matrix} Task matrix data manager */
     this.matrix = new Matrix();
+    
+    /** @type {BattleMode|null} Battle mode instance for task prioritization */
     this.battleMode = null;
+    
+    /** @type {Task|null} Currently selected task for editing */
     this.currentEditingTask = null;
 
-    // DOM elements
+    /** @type {Object} Cache of frequently used DOM elements */
     this.elements = {};
 
     this.init();
   }
 
+  /**
+   * Initializes the application asynchronously.
+   * Sets up internationalization, caches DOM elements, binds events, and renders initial state.
+   * 
+   * @async
+   * @returns {Promise<void>}
+   */
   async init() {
     try {
-      // Initialize i18n
+      // Initialize internationalization system
       await this.i18n.init();
 
-      // Cache DOM elements
+      // Cache DOM elements for performance
       this.cacheElements();
 
-      // Set up event listeners
+      // Set up event listeners for user interactions
       this.setupEventListeners();
 
-      // Render initial state
+      // Render initial matrix state
       this.renderMatrix();
 
       console.log('Priority Matrix App initialized successfully');

@@ -1,13 +1,50 @@
 import Task from './task.js';
 import BattleMode from './battle.js';
 
+/**
+ * Eisenhower Priority Matrix management class.
+ * Manages a collection of tasks organized by importance and urgency into 4 quadrants:
+ * - Q1 (Do First): Important & Urgent - Crisis, emergencies, deadlines
+ * - Q2 (Schedule): Important & Not Urgent - Prevention, planning, development  
+ * - Q3 (Delegate): Not Important & Urgent - Interruptions, some calls/emails
+ * - Q4 (Eliminate): Not Important & Not Urgent - Time wasters, busy work
+ * 
+ * Features:
+ * - Task CRUD operations with validation
+ * - Local storage persistence
+ * - Battle mode integration for "The One" prioritization
+ * - Statistics and reporting
+ * - Event-driven architecture
+ * - Data import/export capabilities
+ * 
+ * @class Matrix
+ */
 class Matrix {
+  /**
+   * Creates a new Matrix instance and loads existing tasks from local storage.
+   */
   constructor() {
+    /** @type {Map<string, Task>} Map of task IDs to Task instances */
     this.tasks = new Map();
+    
+    /** @type {Map<string, Function[]>} Event handlers by event name */
     this.eventHandlers = new Map();
+    
     this.loadFromStorage();
   }
 
+  /**
+   * Adds a new task to the matrix after validation.
+   * Automatically saves to storage and emits 'taskAdded' event.
+   * 
+   * @param {Object|Task} taskData - Task data object or Task instance
+   * @param {string} taskData.name - Task name (required)
+   * @param {string} [taskData.description] - Task description
+   * @param {boolean} [taskData.importance] - Task importance flag
+   * @param {boolean} [taskData.urgency] - Task urgency flag
+   * @returns {Task} The created and added task
+   * @throws {Error} If task validation fails
+   */
   addTask(taskData) {
     const task = taskData instanceof Task ? taskData : new Task(taskData);
     const validation = task.validate();
@@ -22,6 +59,20 @@ class Matrix {
     return task;
   }
 
+  /**
+   * Updates an existing task with new data.
+   * Validates the update and saves to storage. Emits 'taskUpdated' event.
+   * 
+   * @param {string} taskId - ID of the task to update
+   * @param {Object} updateData - Object containing fields to update
+   * @param {string} [updateData.name] - New task name
+   * @param {string} [updateData.description] - New task description
+   * @param {boolean} [updateData.importance] - New importance flag
+   * @param {boolean} [updateData.urgency] - New urgency flag
+   * @param {boolean} [updateData.completed] - New completion status
+   * @returns {Task} The updated task
+   * @throws {Error} If task not found or validation fails
+   */
   updateTask(taskId, updateData) {
     const task = this.tasks.get(taskId);
     if (!task) {
@@ -41,6 +92,14 @@ class Matrix {
     return task;
   }
 
+  /**
+   * Removes a task from the matrix.
+   * Saves to storage and emits 'taskDeleted' event.
+   * 
+   * @param {string} taskId - ID of the task to delete
+   * @returns {Task} The deleted task
+   * @throws {Error} If task not found
+   */
   deleteTask(taskId) {
     const task = this.tasks.get(taskId);
     if (!task) {
@@ -53,14 +112,35 @@ class Matrix {
     return task;
   }
 
+  /**
+   * Retrieves a task by its ID.
+   * 
+   * @param {string} taskId - ID of the task to retrieve
+   * @returns {Task|undefined} The task if found, undefined otherwise
+   */
   getTask(taskId) {
     return this.tasks.get(taskId);
   }
 
+  /**
+   * Gets all tasks as an array.
+   * 
+   * @returns {Task[]} Array of all tasks in the matrix
+   */
   getAllTasks() {
     return Array.from(this.tasks.values());
   }
 
+  /**
+   * Gets tasks filtered by quadrant(s).
+   * 
+   * @param {number|null} [quadrant=null] - Specific quadrant (1-4) or null for all quadrants
+   * @returns {Task[]|Object} Array of tasks for specific quadrant, or object with all quadrants
+   * @returns {Task[]} returns.1 - Q1: Important & Urgent (Do First)
+   * @returns {Task[]} returns.2 - Q2: Important & Not Urgent (Schedule)  
+   * @returns {Task[]} returns.3 - Q3: Not Important & Urgent (Delegate)
+   * @returns {Task[]} returns.4 - Q4: Not Important & Not Urgent (Eliminate)
+   */
   getTasksByQuadrant(quadrant = null) {
     const allTasks = this.getAllTasks();
 
@@ -68,35 +148,68 @@ class Matrix {
       return allTasks.filter(task => task.quadrant === quadrant);
     }
 
-    // Return all quadrants
+    // Return tasks grouped by all quadrants
     return {
-      1: allTasks.filter(task => task.quadrant === 1),
-      2: allTasks.filter(task => task.quadrant === 2),
-      3: allTasks.filter(task => task.quadrant === 3),
-      4: allTasks.filter(task => task.quadrant === 4)
+      1: allTasks.filter(task => task.quadrant === 1), // Do First
+      2: allTasks.filter(task => task.quadrant === 2), // Schedule
+      3: allTasks.filter(task => task.quadrant === 3), // Delegate
+      4: allTasks.filter(task => task.quadrant === 4)  // Eliminate
     };
   }
 
+  /**
+   * Gets all completed tasks.
+   * 
+   * @returns {Task[]} Array of completed tasks
+   */
   getCompletedTasks() {
     return this.getAllTasks().filter(task => task.completed);
   }
 
+  /**
+   * Gets all pending (incomplete) tasks.
+   * 
+   * @returns {Task[]} Array of pending tasks
+   */
   getPendingTasks() {
     return this.getAllTasks().filter(task => !task.completed);
   }
 
+  /**
+   * Gets all overdue tasks (Q1 tasks older than 7 days).
+   * 
+   * @returns {Task[]} Array of overdue tasks
+   */
   getOverdueTasks() {
     return this.getAllTasks().filter(task => task.isOverdue());
   }
 
+  /**
+   * Filters tasks by importance level.
+   * 
+   * @param {boolean} importance - True for important tasks, false for not important
+   * @returns {Task[]} Array of tasks matching the importance criteria
+   */
   getTasksByImportance(importance) {
     return this.getAllTasks().filter(task => task.importance === importance);
   }
 
+  /**
+   * Filters tasks by urgency level.
+   * 
+   * @param {boolean} urgency - True for urgent tasks, false for not urgent
+   * @returns {Task[]} Array of tasks matching the urgency criteria
+   */
   getTasksByUrgency(urgency) {
     return this.getAllTasks().filter(task => task.urgency === urgency);
   }
 
+  /**
+   * Searches tasks by name and description using case-insensitive matching.
+   * 
+   * @param {string} query - Search term to match against task name and description
+   * @returns {Task[]} Array of tasks matching the search query
+   */
   searchTasks(query) {
     const searchTerm = query.toLowerCase().trim();
     if (!searchTerm) return [];
@@ -107,10 +220,18 @@ class Matrix {
     });
   }
 
+  /**
+   * Sorts tasks by priority score with optional battle mode integration.
+   * For Q1 (Do First) tasks, uses battle results if available for more accurate prioritization.
+   * 
+   * @param {Task[]|null} [tasks=null] - Tasks to sort, or null to sort all tasks
+   * @param {number|null} [quadrant=null] - Specific quadrant for specialized sorting logic
+   * @returns {Task[]} Array of tasks sorted by priority (highest priority first)
+   */
   sortTasksByPriority(tasks = null, quadrant = null) {
     const tasksToSort = tasks || this.getAllTasks();
 
-    // For Do First quadrant (quadrant 1), try to use battle results
+    // For Do First quadrant (quadrant 1), try to use battle results for "The One" prioritization
     if (quadrant === 1) {
       return this.sortTasksWithBattleResults(tasksToSort);
     }
@@ -119,6 +240,13 @@ class Matrix {
     return tasksToSort.sort((a, b) => b.getPriorityScore() - a.getPriorityScore());
   }
 
+  /**
+   * Sorts tasks using battle mode results for more accurate priority ranking.
+   * Falls back to priority score sorting if no battle results are available.
+   * 
+   * @param {Task[]} tasks - Tasks to sort using battle results
+   * @returns {Task[]} Tasks sorted by battle ranking, then by priority score
+   */
   sortTasksWithBattleResults(tasks) {
     // Load battle results from localStorage
     const battleResults = BattleMode.loadBattleResults();
@@ -142,9 +270,9 @@ class Matrix {
       const aRanking = battleRankingMap.get(a.id);
       const bRanking = battleRankingMap.get(b.id);
 
-      // If both tasks have battle rankings, use battle order
+      // If both tasks have battle rankings, use battle order (lower position = higher rank)
       if (aRanking && bRanking) {
-        return aRanking.position - bRanking.position; // Lower position = higher rank
+        return aRanking.position - bRanking.position;
       }
 
       // If only one has battle ranking, prioritize it
