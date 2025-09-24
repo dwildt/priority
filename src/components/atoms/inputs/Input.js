@@ -151,9 +151,8 @@ class Input {
   /**
    * Sets validation state styling
    * @param {boolean} isValid - Whether the input is valid
-   * @param {string} [message] - Validation message
    */
-  setValidationState(isValid, message) {
+  setValidationState(isValid) {
     if (!this.element) return;
 
     if (isValid) {
