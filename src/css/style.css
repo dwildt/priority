@@ -1,3 +1,38 @@
+/* Asana-Inspired Color System */
+:root {
+  /* Primary Quadrant Colors (based on Asana design) */
+  --color-q1: #4A90E2;           /* Blue - Do First (Urgent & Important) */
+  --color-q1-light: #E8F4FD;    /* Light blue for backgrounds */
+  --color-q1-border: #4A90E2;   /* Blue for borders */
+
+  --color-q2: #2ECC8F;          /* Green - Schedule (Important & Not Urgent) */
+  --color-q2-light: #E8F8F3;    /* Light green for backgrounds */
+  --color-q2-border: #2ECC8F;   /* Green for borders */
+
+  --color-q3: #FFA726;          /* Orange/Yellow - Delegate (Urgent & Not Important) */
+  --color-q3-light: #FFF4E6;    /* Light orange for backgrounds */
+  --color-q3-border: #FFA726;   /* Orange for borders */
+
+  --color-q4: #FF6B6B;          /* Red - Eliminate (Not Important & Not Urgent) */
+  --color-q4-light: #FFEBEB;    /* Light red for backgrounds */
+  --color-q4-border: #FF6B6B;   /* Red for borders */
+
+  /* Semantic Colors */
+  --color-success: #2ECC8F;
+  --color-warning: #FFA726;
+  --color-error: #FF6B6B;
+  --color-info: #4A90E2;
+
+  /* Neutral Colors */
+  --color-primary: #4f46e5;
+  --color-secondary: #64748b;
+  --color-text: #333;
+  --color-text-light: #64748b;
+  --color-background: #ffffff;
+  --color-surface: #f8fafc;
+  --color-border: #e2e8f0;
+}
+
 /* Reset and base styles */
 * {
   margin: 0;
@@ -171,26 +206,26 @@ body {
 
 .quadrant-1 {
   border-top-left-radius: 16px;
-  background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
-  border-color: #ef4444;
+  background: linear-gradient(135deg, var(--color-q1-light) 0%, rgba(74, 144, 226, 0.1) 100%);
+  border-color: var(--color-q1-border);
 }
 
 .quadrant-2 {
   border-top-right-radius: 16px;
-  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
-  border-color: #3b82f6;
+  background: linear-gradient(135deg, var(--color-q2-light) 0%, rgba(46, 204, 143, 0.1) 100%);
+  border-color: var(--color-q2-border);
 }
 
 .quadrant-3 {
   border-bottom-left-radius: 16px;
-  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-  border-color: #f59e0b;
+  background: linear-gradient(135deg, var(--color-q3-light) 0%, rgba(255, 167, 38, 0.1) 100%);
+  border-color: var(--color-q3-border);
 }
 
 .quadrant-4 {
   border-bottom-right-radius: 16px;
-  background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
-  border-color: #6b7280;
+  background: linear-gradient(135deg, var(--color-q4-light) 0%, rgba(255, 107, 107, 0.1) 100%);
+  border-color: var(--color-q4-border);
 }
 
 .quadrant-header {
@@ -211,19 +246,19 @@ body {
 }
 
 .urgent-important h2 {
-  color: #dc2626;
+  color: var(--color-q1);
 }
 
 .not-urgent-important h2 {
-  color: #2563eb;
+  color: var(--color-q2);
 }
 
 .urgent-not-important h2 {
-  color: #d97706;
+  color: var(--color-q3);
 }
 
 .not-urgent-not-important h2 {
-  color: #6b7280;
+  color: var(--color-q4);
 }
 
 .battle-mode-btn {
@@ -297,22 +332,23 @@ body {
 }
 
 .task-item.priority-critical {
-  border-left-color: #dc2626;
-  background: linear-gradient(90deg, #fee2e2 0%, white 10%);
+  border-left-color: var(--color-q1);
+  background: linear-gradient(90deg, var(--color-q1-light) 0%, white 10%);
 }
 
 .task-item.priority-high {
-  border-left-color: #f59e0b;
-  background: linear-gradient(90deg, #fef3c7 0%, white 10%);
+  border-left-color: var(--color-q2);
+  background: linear-gradient(90deg, var(--color-q2-light) 0%, white 10%);
 }
 
 .task-item.priority-medium {
-  border-left-color: #3b82f6;
-  background: linear-gradient(90deg, #dbeafe 0%, white 10%);
+  border-left-color: var(--color-q3);
+  background: linear-gradient(90deg, var(--color-q3-light) 0%, white 10%);
 }
 
 .task-item.priority-low {
-  border-left-color: #6b7280;
+  border-left-color: var(--color-q4);
+  background: linear-gradient(90deg, var(--color-q4-light) 0%, white 10%);
 }
 
 .task-content {
@@ -389,12 +425,12 @@ body {
 
 /* The One display */
 .the-one-display {
-  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  background: linear-gradient(135deg, var(--color-q1) 0%, rgba(74, 144, 226, 0.8) 100%);
   border-radius: 16px;
   padding: 2rem;
   margin: 2rem 0;
   text-align: center;
-  box-shadow: 0 10px 40px rgba(245, 158, 11, 0.3);
+  box-shadow: 0 10px 40px rgba(74, 144, 226, 0.3);
 }
 
 .the-one-display h2 {
@@ -703,7 +739,7 @@ body {
 }
 
 .battle-result h3 {
-  color: #059669;
+  color: var(--color-success);
   font-size: 2rem;
   margin-bottom: 1rem;
 }
@@ -846,15 +882,15 @@ body {
 }
 
 .notification-success {
-  background: #059669;
+  background: var(--color-success);
 }
 
 .notification-error {
-  background: #dc2626;
+  background: var(--color-error);
 }
 
 .notification-info {
-  background: #0284c7;
+  background: var(--color-info);
 }
 
 @keyframes notificationSlideIn {

@@ -76,17 +76,23 @@ Visit `http://localhost:8080` to use the application.
 ```
 priority/
 ├── src/
+│   ├── components/      # Atomic Design Components
+│   │   ├── atoms/       # Basic building blocks (buttons, inputs, icons)
+│   │   ├── molecules/   # Component combinations (forms, cards)
+│   │   ├── organisms/   # Complex components (grids, modals)
+│   │   ├── templates/   # Page layouts
+│   │   └── pages/       # Complete page implementations
 │   ├── js/              # Application logic
 │   │   ├── app.js       # Main application
 │   │   ├── matrix.js    # Matrix logic
 │   │   ├── battle.js    # Battle mode
 │   │   └── i18n.js      # Internationalization
-│   ├── css/             # Stylesheets
+│   ├── css/             # Asana-inspired design system & styles
 │   ├── i18n/            # Language files
 │   └── index.html       # Main HTML
 ├── tests/               # Unit tests
 ├── cypress/             # E2E tests
-└── tasks/               # Project documentation
+└── tasks/               # Project documentation & planning
 ```
 
 ## 🛠️ Development
@@ -143,7 +149,22 @@ Unique feature for determining task priority:
 3. Algorithm ranks all tasks based on comparisons
 4. "The One" most important task is identified
 
-## 🎨 Print Reports
+## 🎨 Design System
+
+**Asana-Inspired Color Palette:**
+- **Q1 (Do First)**: Blue (#4A90E2) - Professional urgency
+- **Q2 (Schedule)**: Green (#2ECC8F) - Growth and planning
+- **Q3 (Delegate)**: Orange (#FFA726) - Attention and delegation
+- **Q4 (Eliminate)**: Red (#FF6B6B) - Warning and elimination
+
+**Atomic Design Architecture:**
+- **Atoms**: Buttons, inputs, icons, typography, toggles
+- **Molecules**: Form groups, task cards, progress indicators
+- **Organisms**: Matrix grid, modals, headers, battle interface
+- **Templates**: Layout structures for different page types
+- **Pages**: Complete application views
+
+## 📄 Print Reports
 
 Generate professional reports including:
 - **The One**: Your single most important task
