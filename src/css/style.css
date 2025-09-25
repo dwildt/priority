@@ -170,6 +170,22 @@ body {
   transform: scale(1.1);
 }
 
+.settings-btn {
+  font-size: 1.5rem;
+  padding: 0.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  min-height: 40px;
+}
+
+.settings-btn:hover {
+  background: rgba(79, 70, 229, 0.1);
+  transform: scale(1.1);
+}
+
 /* Main content */
 .app-main {
   max-width: 1400px;
@@ -520,6 +536,41 @@ body {
 .close-btn:hover {
   background: #f1f5f9;
   color: #1f2937;
+}
+
+/* Settings Modal */
+.settings-content {
+  padding: 1.5rem;
+}
+
+.setting-group {
+  margin-bottom: 2rem;
+}
+
+.setting-group h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 1rem;
+}
+
+.settings-actions {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.setting-description {
+  font-size: 0.9rem;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.settings-content .language-selector {
+  width: 100%;
+  max-width: 250px;
 }
 
 /* Task form */

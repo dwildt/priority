@@ -73,12 +73,20 @@ class PriorityMatrixApp {
       // Buttons
       addTaskBtn: document.getElementById('add-task-btn'),
       generateReportBtn: document.getElementById('generate-report-btn'),
+      settingsBtn: document.getElementById('settings-btn'),
+      importBtn: document.getElementById('import-btn'),
+      exportBtn: document.getElementById('export-btn'),
       battleModeBtn: document.querySelector('.battle-mode-btn'),
 
       // Modals
       taskModal: document.getElementById('task-modal'),
       battleModal: document.getElementById('battle-modal'),
       reportModal: document.getElementById('report-modal'),
+      settingsModal: document.getElementById('settings-modal'),
+
+      // Settings
+      languageSelector: document.getElementById('language-selector'),
+      importFileInput: document.getElementById('import-file-input'),
 
       // Task form
       taskForm: document.getElementById('task-form'),
@@ -116,6 +124,13 @@ class PriorityMatrixApp {
 
     // Generate report button
     this.elements.generateReportBtn?.addEventListener('click', () => this.generateReport());
+
+    // Settings button
+    this.elements.settingsBtn?.addEventListener('click', () => this.openSettings());
+
+    // Import/Export buttons
+    this.elements.importBtn?.addEventListener('click', () => this.importData());
+    this.elements.exportBtn?.addEventListener('click', () => this.exportData());
 
     // Print report button
     this.elements.printReportBtn?.addEventListener('click', () => this.printReport());
@@ -204,6 +219,61 @@ class PriorityMatrixApp {
       console.error('Error saving task:', error);
       this.showError(error.message);
     }
+  }
+
+  openSettings() {
+    this.showModal(this.elements.settingsModal);
+  }
+
+  exportData() {
+    try {
+      const data = this.matrix.exportData();
+      const dataStr = JSON.stringify(data, null, 2);
+      const dataBlob = new Blob([dataStr], { type: 'application/json' });
+      
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(dataBlob);
+      link.download = `priority-matrix-backup-${new Date().toISOString().split('T')[0]}.json`;
+      
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      this.showSuccess(this.i18n.t('messages.export_success'));
+    } catch (error) {
+      console.error('Export failed:', error);
+      this.showError(this.i18n.t('messages.export_error'));
+    }
+  }
+
+  importData() {
+    this.elements.importFileInput?.click();
+    
+    this.elements.importFileInput?.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const data = JSON.parse(e.target.result);
+          
+          if (confirm(this.i18n.t('messages.confirm_import'))) {
+            this.matrix.importData(data);
+            this.showSuccess(this.i18n.t('messages.import_success'));
+            this.closeModal(this.elements.settingsModal);
+            this.renderMatrix();
+          }
+        } catch (error) {
+          console.error('Import failed:', error);
+          this.showError(this.i18n.t('messages.import_error'));
+        }
+      };
+      
+      reader.readAsText(file);
+      // Reset the input so the same file can be selected again if needed
+      this.elements.importFileInput.value = '';
+    }, { once: true });
   }
 
   renderMatrix() {
