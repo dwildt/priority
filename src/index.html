@@ -34,12 +34,10 @@
             <h1 data-i18n="app.title" data-cy="app-title">Priority Matrix</h1>
 
             <div class="header-controls">
-                <!-- Language Switcher - Supports PT/EN/ES -->
-                <select id="language-selector" data-cy="language-selector" class="language-selector">
-                    <option value="en">🇺🇸 English</option>
-                    <option value="pt">🇧🇷 Português</option>
-                    <option value="es">🇪🇸 Español</option>
-                </select>
+                <!-- Settings Button -->
+                <button id="settings-btn" data-cy="settings-btn" class="btn btn-icon settings-btn" title="Settings">
+                    ⚙️
+                </button>
 
                 <!-- Primary Action Buttons -->
                 <button id="add-task-btn" data-cy="add-task-btn" class="btn btn-primary">
@@ -235,6 +233,43 @@
                 <button class="btn btn-secondary" id="print-report-btn" data-cy="print-report-btn">
                     <span data-i18n="buttons.print">Print</span>
                 </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 data-i18n="settings.title">Settings</h2>
+                <button class="close-btn" data-cy="close-settings-modal">&times;</button>
+            </div>
+
+            <div class="settings-content">
+                <div class="setting-group">
+                    <h3 data-i18n="settings.language.title">Language</h3>
+                    <select id="language-selector" data-cy="language-selector" class="language-selector">
+                        <option value="en">🇺🇸 English</option>
+                        <option value="pt">🇧🇷 Português</option>
+                        <option value="es">🇪🇸 Español</option>
+                    </select>
+                </div>
+
+                <div class="setting-group">
+                    <h3 data-i18n="settings.data.title">Data Management</h3>
+                    <div class="settings-actions">
+                        <button id="import-btn" data-cy="import-btn" class="btn btn-secondary">
+                            <span data-i18n="settings.data.import">Import Data</span>
+                        </button>
+                        <button id="export-btn" data-cy="export-btn" class="btn btn-secondary">
+                            <span data-i18n="settings.data.export">Export Data</span>
+                        </button>
+                    </div>
+                    <input type="file" id="import-file-input" accept=".json" style="display: none;">
+                    <p class="setting-description" data-i18n="settings.data.description">
+                        Export your tasks as JSON for backup, or import from a previously exported file.
+                    </p>
+                </div>
             </div>
         </div>
     </div>

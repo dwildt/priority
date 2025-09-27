@@ -88,10 +88,15 @@
     "task_completed": "Tarefa marcada como concluída",
     "task_uncompleted": "Tarefa marcada como pendente",
     "confirm_delete": "Tem certeza de que deseja excluir esta tarefa?",
+    "confirm_import": "Isso substituirá todas as tarefas atuais. Tem certeza de que deseja importar estes dados?",
     "no_tasks": "Nenhuma tarefa encontrada",
     "loading": "Carregando...",
     "error": "Ocorreu um erro",
-    "success": "Operação concluída com sucesso"
+    "success": "Operação concluída com sucesso",
+    "export_success": "Dados exportados com sucesso",
+    "export_error": "Falha ao exportar dados",
+    "import_success": "Dados importados com sucesso",
+    "import_error": "Falha ao importar dados. Verifique o formato do arquivo."
   },
   "stats": {
     "total_tasks": "Total de Tarefas",
@@ -101,6 +106,18 @@
     "completion_rate": "Taxa de Conclusão",
     "average_importance": "Importância Média",
     "average_urgency": "Urgência Média"
+  },
+  "settings": {
+    "title": "Configurações",
+    "language": {
+      "title": "Idioma"
+    },
+    "data": {
+      "title": "Gerenciamento de Dados",
+      "import": "Importar Dados",
+      "export": "Exportar Dados",
+      "description": "Exporte suas tarefas como JSON para backup, ou importe de um arquivo exportado anteriormente."
+    }
   },
   "footer": {
     "repository": "Repositório",
