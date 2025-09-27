@@ -67,6 +67,16 @@ describe('Task Core Functionality', () => {
       this.updated = new Date();
       this.quadrant = this.calculateQuadrant();
     }
+
+    getImportanceLabelCompact() {
+      const important = typeof this.importance === 'boolean' ? this.importance : this.importance >= 4;
+      return important ? 'I' : 'NI';
+    }
+
+    getUrgencyLabelCompact() {
+      const urgent = typeof this.urgency === 'boolean' ? this.urgency : this.urgency >= 4;
+      return urgent ? 'U' : 'NU';
+    }
   }
 
   describe('Basic Task Creation', () => {
@@ -180,6 +190,40 @@ describe('Task Core Functionality', () => {
 
       expect(task.id).toBe('original-id');
       expect(task.created).toBe(originalCreated);
+    });
+  });
+
+  describe('Compact Label Methods', () => {
+    test('should return correct compact importance labels', () => {
+      const importantTask = new Task({ importance: 5 });
+      const notImportantTask = new Task({ importance: 2 });
+
+      expect(importantTask.getImportanceLabelCompact()).toBe('I');
+      expect(notImportantTask.getImportanceLabelCompact()).toBe('NI');
+    });
+
+    test('should return correct compact urgency labels', () => {
+      const urgentTask = new Task({ urgency: 5 });
+      const notUrgentTask = new Task({ urgency: 2 });
+
+      expect(urgentTask.getUrgencyLabelCompact()).toBe('U');
+      expect(notUrgentTask.getUrgencyLabelCompact()).toBe('NU');
+    });
+
+    test('should handle boolean importance values for compact labels', () => {
+      const importantTask = new Task({ importance: true });
+      const notImportantTask = new Task({ importance: false });
+
+      expect(importantTask.getImportanceLabelCompact()).toBe('I');
+      expect(notImportantTask.getImportanceLabelCompact()).toBe('NI');
+    });
+
+    test('should handle boolean urgency values for compact labels', () => {
+      const urgentTask = new Task({ urgency: true });
+      const notUrgentTask = new Task({ urgency: false });
+
+      expect(urgentTask.getUrgencyLabelCompact()).toBe('U');
+      expect(notUrgentTask.getUrgencyLabelCompact()).toBe('NU');
     });
   });
 });

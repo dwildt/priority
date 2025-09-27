@@ -169,6 +169,26 @@ class Task {
   }
 
   /**
+   * Gets compact importance label for UI display.
+   * Works with both boolean and legacy numeric values.
+   * 
+   * @returns {string} "I" or "NI"
+   */
+  getImportanceLabelCompact() {
+    return this.importance ? 'I' : 'NI';
+  }
+
+  /**
+   * Gets compact urgency label for UI display.
+   * Works with both boolean and legacy numeric values.
+   * 
+   * @returns {string} "U" or "NU"
+   */
+  getUrgencyLabelCompact() {
+    return this.urgency ? 'U' : 'NU';
+  }
+
+  /**
    * Gets the Eisenhower Matrix quadrant name for this task.
    * 
    * @returns {string} Quadrant action name: "Do First", "Schedule", "Delegate", or "Eliminate"
