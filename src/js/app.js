@@ -256,11 +256,8 @@ class PriorityMatrixApp {
     taskEl.innerHTML = `
       <div class="task-content">
         <h4 class="task-name">${this.escapeHtml(task.name)}</h4>
-        ${task.description ? `<p class="task-description">${this.escapeHtml(task.description)}</p>` : ''}
-        <div class="task-meta">
-          <span class="importance">I: ${task.getImportanceLabel()}</span>
-          <span class="urgency">U: ${task.getUrgencyLabel()}</span>
-          <span class="age">${task.getAgeInDays()}d</span>
+        <div class="task-meta-compact">
+          ${task.getImportanceLabelCompact()} | ${task.getUrgencyLabelCompact()} | ${task.getAgeInDays()}d
         </div>
       </div>
       <div class="task-actions">

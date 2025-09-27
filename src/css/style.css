@@ -352,7 +352,7 @@ body {
 }
 
 .task-content {
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
 }
 
 .task-name {
@@ -382,6 +382,13 @@ body {
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
   font-weight: 600;
+}
+
+.task-meta-compact {
+  font-size: 0.75rem;
+  color: #64748b;
+  font-weight: 600;
+  margin-top: 0.25rem;
 }
 
 .task-actions {
