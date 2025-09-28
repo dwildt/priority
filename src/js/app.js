@@ -646,7 +646,7 @@ class PriorityMatrixApp {
     try {
       const task = this.matrix.getTask(taskId);
       this.matrix.updateTask(taskId, { completed: !task.completed });
-      this.showSuccess(task.completed ? this.i18n.t('messages.task_uncompleted') : this.i18n.t('messages.task_completed'));
+      this.showSuccess(!task.completed ? this.i18n.t('messages.task_uncompleted') : this.i18n.t('messages.task_completed'));
     } catch (error) {
       console.error('Error toggling task completion:', error);
       this.showError(error.message);
